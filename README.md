@@ -1,3 +1,1 @@
-# blogs
-
-<a href="
+# coming soon!
