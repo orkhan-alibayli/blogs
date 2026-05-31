@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://blogs-tz2q.onrender.com/api";
 
 let isRefreshing = false;
 let refreshPromise = null;
