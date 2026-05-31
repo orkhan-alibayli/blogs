@@ -1,3 +1,7 @@
+import { api } from "./js/api.js";
+
+const alertBoxInForm = document.querySelector('.alert-box');
+
 const forClick = document.getElementsByClassName('for-click')[0];
 const forClickMenu = document.getElementsByClassName('for-click-menu')[0];
 forClick.addEventListener('click', () => {
@@ -5,50 +9,26 @@ forClick.addEventListener('click', () => {
 });
 
 
-const arrayOfBlogs = [
-    {
-        nameOfBlogs: 'Cyber Talks',
-        dateOfBlogs: '05/03/2023',
-        linkOfBlogs: 'https://www.youtube.com/watch?v=cZxLJ1XYimc',
-        coverOfBlogs: 'photos/blog1.jpg'
-    },
-    {
-        nameOfBlogs: 'Article - Subdomain Takeover',
-        dateOfBlogs: '30/11/2022',
-        linkOfBlogs: 'https://medium.com/@orkhan_alibayli/subdomain-takeover-95646de1f436',
-        coverOfBlogs: 'photos/blog-article1.PNG'
-    },
-    {
-        nameOfBlogs: 'cyber security',
-        dateOfBlogs: 'march 7',
-        linkOfBlogs: 'https://www.youtube.com/watch?v=cZxLJ1XYimc',
-        coverOfBlogs: 'photos/blog3.jpg'
-    },
-    {
-        nameOfBlogs: 'cyber security',
-        dateOfBlogs: 'march 8',
-        linkOfBlogs: 'https://www.youtube.com/watch?v=cZxLJ1XYimc',
-        coverOfBlogs: 'photos/blog1.jpg'
-    },
-    {
-        nameOfBlogs: 'cyber security',
-        dateOfBlogs: 'march 9',
-        linkOfBlogs: 'https://www.youtube.com/watch?v=cZxLJ1XYimc',
-        coverOfBlogs: 'photos/blog2.jpg'
-    },
-    {
-        nameOfBlogs: 'cyber security',
-        dateOfBlogs: 'march 10',
-        linkOfBlogs: 'https://www.youtube.com/watch?v=cZxLJ1XYimc',
-        coverOfBlogs: 'photos/blog3.jpg'
-    },
-    {
-        nameOfBlogs: 'cyber security',
-        dateOfBlogs: 'march 11',
-        linkOfBlogs: 'https://www.youtube.com/watch?v=cZxLJ1XYimc',
-        coverOfBlogs: 'photos/blog1.jpg'
+let arrayOfBlogs = [];
+
+const getBlogs = async () => {
+    try {
+        const res = await api.get('/getBlogs');
+        arrayOfBlogs = res.data;
+        if (innerWidth > 620) {
+            everyThing(document.getElementsByClassName('primary-blogs')[0].offsetWidth / 2 - 20, 2, "px");
+        }
+
+        if (innerWidth <= 620) {
+            everyThing(document.getElementsByClassName('primary-blogs')[0].offsetWidth, 1, "px");
+        }
+    } catch (error) {
+        console.log(error)
     }
-];
+
+}
+
+getBlogs();
 
 const everyThing = (widthOfBlogs, seenOfBlogs, piksel) => {
     const blogs = document.getElementsByClassName('blogs')[0];
@@ -57,9 +37,9 @@ const everyThing = (widthOfBlogs, seenOfBlogs, piksel) => {
         const blogsElement = document.createElement('div');
         const blogsElementCoverBox = document.createElement('div');
         const blogsElementCover = document.createElement('img');
-        blogsElementCover.setAttribute('src', e.coverOfBlogs);
+        blogsElementCover.setAttribute('src', `/blogs/photos/${e.coverOfBlog?.split('/').slice(-1)[0]}`);
         const blogsElementPlay = document.createElement('a');
-        blogsElementPlay.setAttribute('href', e.linkOfBlogs);
+        blogsElementPlay.setAttribute('href', e.linkOfBlog);
         blogsElementPlay.setAttribute('target', '_blank');
         const blogsElementPlayIcon = document.createElement('i');
         blogsElementPlayIcon.className = "bx bx-play-circle";
@@ -68,9 +48,9 @@ const everyThing = (widthOfBlogs, seenOfBlogs, piksel) => {
         blogsElementCoverBox.append(blogsElementCover, blogsElementPlay);
 
         const blogsElementDate = document.createElement('span');
-        blogsElementDate.textContent = e.dateOfBlogs;
+        blogsElementDate.textContent = e.date;
         const blogsElementName = document.createElement('h3');
-        blogsElementName.textContent = e.nameOfBlogs;
+        blogsElementName.textContent = e.nameOfBlog;
 
         blogsElement.append(blogsElementCoverBox, blogsElementDate, blogsElementName);
         blogs.append(blogsElement);
@@ -108,21 +88,8 @@ const everyThing = (widthOfBlogs, seenOfBlogs, piksel) => {
                 }
             }
         });
-
     });
-}
-
-
-
-if (innerWidth > 620) {
-    everyThing(document.getElementsByClassName('primary-blogs')[0].offsetWidth / 2 - 20, 2, "px");
-}
-
-if (innerWidth <= 620) {
-    everyThing(document.getElementsByClassName('primary-blogs')[0].offsetWidth, 1, "px");
-}
-
-
+};
 
 const cursor = document.getElementsByClassName('cursor')[0];
 document.addEventListener('mousemove', (e) => {
@@ -155,24 +122,67 @@ cursorTema(label);
 
 const form = document.getElementsByTagName('form')[0];
 
-const sendMessage = (e) => {
+const sendMessage = async (e) => {
     e.preventDefault();
     const nameOfPerson = document.getElementsByClassName('nameOfPerson')[0],
         emailOfPerson = document.getElementsByClassName('emailOfPerson')[0],
         subjectOfPerson = document.getElementsByClassName('subjectOfPerson')[0],
         textOfPerson = document.getElementsByClassName('textOfPerson')[0];
 
-    Email.send({
-        SecureToken: "86ccc825-9428-46d4-bfed-83d534e7716a",
-        To: 'vidadiali.tiva@gmail.com',
-        Subject: subjectOfPerson.value,
-        Body: textOfPerson.value
-    }).then(
-        message => alert(message)
-    );
+    const payload = {
+        name: nameOfPerson?.value.trim(),
+        gmail: emailOfPerson?.value.trim(),
+        subject: subjectOfPerson?.value.trim(),
+        message: textOfPerson?.value.trim(),
+        phone: null,
+    }
+
+    const keys = {
+        name: 'Ad (Name)',
+        gmail: 'Gmail (Gmail)',
+        subject: 'Başlıq (Subject)',
+        message: 'Mesaj (Text)'
+    }
+
+    for (const [key, value] of Object.entries(payload)) {
+        if (value === '') {
+            const alert = {
+                type: 'error',
+                message: `${keys[key]} xanası boş qala bilməz`
+            };
+            localStorage.setItem('alert', JSON.stringify(alert));
+            console.log(keys[key])
+            effectAlert();
+            alertBoxInForm.style.display = 'flex';
+            return;
+        }
+    }
+
+    try {
+        await api.post('/postMessage', payload);
+
+        const alert = {
+            type: 'success',
+            message: `Mesaj uğurla göndərildi`
+        };
+        localStorage.setItem('alert', JSON.stringify(alert));
+        effectAlert();
+        alertBoxInForm.style.display = 'flex';
+
+        nameOfPerson.value = '';
+        subjectOfPerson.value = '';
+        emailOfPerson.value = '';
+        textOfPerson.value = '';
+    } catch (error) {
+        const alert = {
+            type: 'error',
+            message: `${error?.response?.data?.message ||
+                error?.message || "Unknown error"}`
+        };
+        localStorage.setItem('alert', JSON.stringify(alert));
+        effectAlert();
+        alertBoxInForm.style.display = 'flex';
+    }
 }
 
 form.addEventListener('submit', sendMessage);
-// if (scrollY > 0) {
-//     document.getElementById('forUp').style.display = "flex";
-// }

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+
+<body>
+
+    <div class="alert-box"></div>
+
+    <div class="admin">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <h2>Admin Panel</h2>
+                <span>Cyber Dashboard</span>
+            </div>
+
+            <button class="menu-btn active" data-page="blogs">
+                📝 Bloglar
+            </button>
+
+            <button class="menu-btn" data-page="messages">
+                💬 Mesajlar
+            </button>
+
+            <button class="menu-btn" data-page="profile">
+                👤 Profil
+            </button>
+
+        </aside>
+
+        <main class="content">
+
+            <!-- BLOGS -->
+
+            <section id="blogs-page" class="page active">
+
+                <div class="card">
+
+                    <h2>Blog Yarat</h2>
+
+                    <input type="text" id="nameOfBlog" placeholder="Blog adı">
+
+                    <input type="text" id="linkOfBlog" placeholder="Link">
+
+                    <input type="text" id="coverOfBlog" placeholder="Cover">
+
+                    <input type="text" id="dateOfBlog" placeholder="Tarix">
+
+                    <textarea id="paragrafOfBlog" placeholder="Mətn"></textarea>
+
+                    <button id="createBlog">
+                        Yarat
+                    </button>
+
+                </div>
+
+                <div class="card">
+
+                    <h2>Bloglar</h2>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Ad</th>
+                                <th>Tarix</th>
+                                <th>Əməliyyat</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="blogsTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- MESSAGES -->
+
+            <section id="messages-page" class="page">
+
+                <div class="messages-container">
+
+                    <!-- LEFT SIDEBAR -->
+                    <div class="chat-sidebar">
+
+                        <input id="searchMessage" type="text" placeholder="🔍 Gmail axtar...">
+
+                        <div id="gmails" class="chat-users"></div>
+
+                    </div>
+
+                    <!-- RIGHT CHAT AREA -->
+                    <div class="chat-box">
+
+                        <div class="chat-header">
+                            <h3 id="activeUser">Gmail seçin</h3>
+                        </div>
+
+                        <div id="messages" class="chat-messages">
+                            <!-- messages -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- PROFILE -->
+
+            <section id="profile-page" class="page">
+
+                <div class="card">
+
+                    <h2>Profil</h2>
+
+                    <input type="text" id="name">
+
+                    <input type="text" id="surname">
+
+                    <input type="text" id="username">
+
+                    <input type="email" id="gmail">
+
+                    <button id="updateProfile">
+                        Yadda Saxla
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="./js/admin.js"></script>
+
+</body>
+
+</html>

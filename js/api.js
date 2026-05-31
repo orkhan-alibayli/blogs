@@ -14,14 +14,12 @@ async function request(url, options = {}) {
         }
     });
 
-    // 🔥 ACCESS TOKEN EXPIRED HANDLER
     if (res.status === 401) {
 
-        // refresh eyni anda 10 request gəlməsin deyə lock
         if (!isRefreshing) {
             isRefreshing = true;
 
-            refreshPromise = fetch(BASE_URL + "/auth/refresh", {
+            refreshPromise = fetch(BASE_URL + "/admin/auth/refresh", {
                 method: "POST",
                 credentials: "include"
             })
@@ -37,7 +35,7 @@ async function request(url, options = {}) {
             return request(url, options);
         } else {
             // refresh fail → logout
-            window.location.href = "/login.html";
+            // window.location.href = "/blogs/admin/login.html";
             return;
         }
     }

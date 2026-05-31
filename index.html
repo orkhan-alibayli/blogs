@@ -7,6 +7,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="alertMessage.css">
     <title>Orkhan Alibayli</title>
 </head>
 
@@ -78,7 +79,7 @@
                     </div>
                     <div>
                         <h2>Years of experiences</h2>
-                        <span>3+</span>
+                        <span>5+</span>
                     </div>
                 </div>
             </div>
@@ -142,9 +143,19 @@
 
     <span class="cursor"></span>
 
+    <div class="alert-box">
+        <div class="alert-box-content">
+            <h3 class="alert-type">Type</h3>
+            <p class="alert-message">Message</p>
+            <button onclick="closeAlert()" class="alert-btn">Bağla</button>
+        </div>
+    </div>
+
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="script.js"></script>
+
+    <script src="alertMessage.js"></script>
+    <script type="module" src="./script.js"></script>
 </body>
 
 </html>
