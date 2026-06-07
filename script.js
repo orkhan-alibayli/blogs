@@ -182,6 +182,8 @@ const sendMessage = async (e) => {
     }
 
     try {
+        document.getElementById("sendMessage").disabled = true;
+        document.getElementById("sendMessage").value = "Sending...";
         await api.post('/postMessage', payload);
 
         const alert = {
@@ -205,6 +207,10 @@ const sendMessage = async (e) => {
         localStorage.setItem('alert', JSON.stringify(alert));
         effectAlert();
         alertBoxInForm.style.display = 'flex';
+    }
+    finally {
+        document.getElementById("sendMessage").disabled = false;
+        document.getElementById("sendMessage").value = "Send";
     }
 }
 

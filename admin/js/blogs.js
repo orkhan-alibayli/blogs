@@ -34,6 +34,9 @@ const paragraphInput =
 const createButton =
     document.getElementById("createBlog");
 
+const cancelButton =
+    document.getElementById("cancelBlog");
+
 let changeFile = false;
 let blogCoverFromUpdate = null;
 
@@ -136,7 +139,7 @@ const createBlog = async () => {
                 paragraphInput.value.trim(),
 
             date:
-                dateInput.value.trim()
+                dateInput.value?.trim()?.split('-').reverse().join('-')
 
         };
 
@@ -179,7 +182,6 @@ const createBlog = async () => {
         }
 
         clearForm();
-        createButton.textContent = "Yarat";
 
         await loadBlogs();
 
@@ -280,7 +282,7 @@ const fillUpdateForm = async (id) => {
             blog.paragrafOfBlog;
 
         dateInput.value =
-            blog.date;
+            blog.date?.trim()?.split('-').reverse().join('-');
 
         createButton.textContent =
             "Yenilə";
@@ -299,6 +301,24 @@ const fillUpdateForm = async (id) => {
 createButton.addEventListener(
     "click",
     createBlog
+);
+
+cancelButton.addEventListener(
+    "click",
+    () => {
+        if (selectedBlogId) {
+            changeFile = false;
+            document.querySelector(".box-cover")?.remove();
+            blogCoverFromUpdate = null;
+            selectedBlogId = null;
+            const newCoverInput = document.createElement("input");
+            newCoverInput.setAttribute("type", "file");
+            newCoverInput.setAttribute("id", "coverOfBlog");
+            coverInput = newCoverInput;
+            document.querySelector(".card").insertBefore(coverInput, createButton);
+        }
+        clearForm();
+    }
 );
 
 tbody.addEventListener(
