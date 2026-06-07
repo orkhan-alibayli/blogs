@@ -234,6 +234,10 @@ const deleteBlog = async (id) => {
 const fillUpdateForm = async (id) => {
 
     try {
+        changeFile = false;
+        document.querySelector(".box-cover")?.remove();
+        blogCoverFromUpdate = null;
+        selectedBlogId = null;
 
         document.querySelector(".loading-container").style.display = "flex";
         const result =
