@@ -18,7 +18,6 @@ const showAlert = (type, message) => {
     localStorage.setItem('alert', JSON.stringify(alert));
     effectAlert();
     alertBoxInForm.style.display = 'flex';
-    return;
 };
 
 export const loadGmails = async () => {
@@ -59,7 +58,7 @@ export const loadGmails = async () => {
             "error",
             error.message
         );
-
+        return;
     }
 
 };
@@ -86,7 +85,7 @@ const loadMessages = async (gmail) => {
             "error",
             error.message
         );
-
+        return;
     }
 
 };
@@ -154,7 +153,7 @@ const searchMessages = async () => {
             "error",
             error.message
         );
-
+        return;
     }
 
 };

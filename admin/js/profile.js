@@ -9,7 +9,6 @@ const showAlert = (type, message) => {
     localStorage.setItem('alert', JSON.stringify(alert));
     effectAlert();
     alertBoxInForm.style.display = 'flex';
-    return;
 };
 
 const nameInput =
@@ -56,6 +55,7 @@ export const loadProfile = async () => {
             "error",
             error.message
         );
+        return;
     }
 };
 
@@ -97,7 +97,7 @@ const updateProfile = async () => {
             "error",
             error.message
         );
-
+        return;
     }
 
 };

@@ -34,8 +34,8 @@ async function request(url, options = {}) {
             // refresh success → ORIGINAL REQUEST RETRY
             return request(url, options);
         } else {
-            // refresh fail → logout
-            // window.location.href = "/blogs/admin/login.html";
+            localStorage.removeItem("signed");
+            window.location.href = "/admin/login.html";
             return;
         }
     }

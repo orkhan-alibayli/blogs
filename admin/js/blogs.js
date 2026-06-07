@@ -12,7 +12,6 @@ const showAlert = (type, message) => {
     localStorage.setItem('alert', JSON.stringify(alert));
     effectAlert();
     alertBoxInForm.style.display = 'flex';
-    return;
 };
 
 const tbody = document.getElementById("blogsTable");
@@ -98,7 +97,7 @@ export const loadBlogs = async () => {
             "error",
             error.message || "Bloglar gətirilə bilmədi"
         );
-
+        return;
     }
 
 };
@@ -190,7 +189,7 @@ const createBlog = async () => {
             "error",
             error.message || "Əməliyyat uğursuz oldu"
         );
-
+        return;
     }
 
 };
@@ -225,7 +224,7 @@ const deleteBlog = async (id) => {
             "error",
             error.message || "Blog silinə bilmədi"
         );
-
+        return;
     }
 
 };
@@ -292,7 +291,7 @@ const fillUpdateForm = async (id) => {
             "error",
             error.message
         );
-
+        return;
     }
 
 };
