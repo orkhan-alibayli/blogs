@@ -99,9 +99,11 @@
         <div class="error" id="errorBox"></div>
         <input type="text" id="username" class="input-login" placeholder="Username">
         <input type="password" id="password" class="input-login" placeholder="Password">
-        <button class="login-btn" onclick="login()">Login</button>
+        <button class="login-btn" onclick="login()">Daxil ol</button>
     </div>
     <script type="module">
+
+        const loginBtn = document.querySelector(".login-btn");
 
         import { api } from "../js/api.js";
 
@@ -118,13 +120,18 @@
                 return;
             }
             try {
+                loginBtn.textContent = "Daxil olunur...";
                 await api.post("/login", { username, password });
+                loginBtn.textContent = "Uğurla daxil olundu!";
                 errorBox.style.display = "none";
-                window.location.href = "/blogs/admin/index.html";
+                window.location.href = "/admin/index.html";
                 localStorage.setItem('signed', JSON.stringify(true));
             } catch (err) {
                 errorBox.style.display = "block";
                 errorBox.textContent = err.message || "Xəta baş verdi";
+            }
+            finally {
+                loginBtn.textContent = "Daxil ol";
             }
         }
     </script>

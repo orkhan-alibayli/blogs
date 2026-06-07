@@ -1,20 +1,18 @@
 import { api } from "../../js/api.js";
+import { uploadImage } from "./utilites.js";
 
 let selectedBlogId = null;
 
 const showAlert = (type, message) => {
-
-    localStorage.setItem(
-        "alert",
-        JSON.stringify({
-            type,
-            message
-        })
-    );
-
-    if (typeof effectAlert === "function") {
-        effectAlert();
-    }
+    const alertBoxInForm = document.querySelector('.alert-box');
+    const alert = {
+        type,
+        message
+    };
+    localStorage.setItem('alert', JSON.stringify(alert));
+    effectAlert();
+    alertBoxInForm.style.display = 'flex';
+    return;
 };
 
 const tbody = document.getElementById("blogsTable");
@@ -25,7 +23,7 @@ const nameInput =
 const linkInput =
     document.getElementById("linkOfBlog");
 
-const coverInput =
+let coverInput =
     document.getElementById("coverOfBlog");
 
 const dateInput =
@@ -36,6 +34,9 @@ const paragraphInput =
 
 const createButton =
     document.getElementById("createBlog");
+
+let changeFile = false;
+let blogCoverFromUpdate = null;
 
 const clearForm = () => {
 
@@ -105,6 +106,21 @@ export const loadBlogs = async () => {
 const createBlog = async () => {
 
     try {
+        let imageUrl = "";
+        if (selectedBlogId) {
+            createButton.textContent = "Yenilənir...";
+            if (changeFile) {
+                const file = coverInput.files[0];
+                imageUrl = await uploadImage(file);
+            }
+            else {
+                imageUrl = blogCoverFromUpdate;
+            }
+        } else {
+            createButton.textContent = "Yaradılır...";
+            const file = coverInput.files[0];
+            imageUrl = await uploadImage(file);
+        }
 
         const payload = {
 
@@ -115,7 +131,7 @@ const createBlog = async () => {
                 linkInput.value.trim(),
 
             coverOfBlog:
-                coverInput.value.trim(),
+                imageUrl,
 
             paragrafOfBlog:
                 paragraphInput.value.trim(),
@@ -151,7 +167,20 @@ const createBlog = async () => {
 
         }
 
+        if (selectedBlogId) {
+            changeFile = false;
+            document.querySelector(".box-cover")?.remove();
+            blogCoverFromUpdate = null;
+            selectedBlogId = null;
+            const newCoverInput = document.createElement("input");
+            newCoverInput.setAttribute("type", "file");
+            newCoverInput.setAttribute("id", "coverOfBlog");
+            coverInput = newCoverInput;
+            document.querySelector(".card").insertBefore(coverInput, createButton);
+        }
+
         clearForm();
+        createButton.textContent = "Yarat";
 
         await loadBlogs();
 
@@ -205,9 +234,11 @@ const fillUpdateForm = async (id) => {
 
     try {
 
+        document.querySelector(".loading-container").style.display = "flex";
         const result =
             await api.get("/getBlogs");
 
+        document.querySelector(".loading-container").style.display = "none";
         const blog =
             result.data.find(
                 x => x._id === id
@@ -217,14 +248,34 @@ const fillUpdateForm = async (id) => {
 
         selectedBlogId = id;
 
+        coverInput.remove();
+        const boxCover = document.createElement("div");
+        boxCover.classList.add("box-cover");
+        const imgCover = document.createElement("img");
+        imgCover.setAttribute("src", blog.coverOfBlog);
+        imgCover.setAttribute("alt", "Blog Cover");
+        imgCover.setAttribute("id", "blogCoverFromUpdate");
+        blogCoverFromUpdate = blog.coverOfBlog;
+
+        const newCoverInput = document.createElement("input");
+        newCoverInput.setAttribute("type", "file");
+        newCoverInput.setAttribute("id", "coverOfBlog");
+
+        boxCover.append(imgCover, newCoverInput);
+
+        newCoverInput.addEventListener("change", () => {
+            changeFile = true;
+        });
+
+        coverInput = newCoverInput;
+
+        document.querySelector(".card").insertBefore(boxCover, createButton);
+
         nameInput.value =
             blog.nameOfBlog;
 
         linkInput.value =
             blog.linkOfBlog;
-
-        coverInput.value =
-            blog.coverOfBlog;
 
         paragraphInput.value =
             blog.paragrafOfBlog;

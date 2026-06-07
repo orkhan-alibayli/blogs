@@ -6,18 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
 
+    <link rel="stylesheet" href="../alertMessage.css">
     <link rel="stylesheet" href="./css/admin.css">
 </head>
 
 <body>
 
-    <div class="alert-box"></div>
+    <div class="alert-box">
+        <div class="alert-box-content">
+            <h3 class="alert-type">Type</h3>
+            <p class="alert-message">Message</p>
+            <button onclick="closeAlert()" class="alert-btn">Bağla</button>
+        </div>
+    </div>
 
     <div class="admin">
 
         <aside class="sidebar">
 
             <div class="brand">
+                <a href="/" class="brand-link">Əsas Səhifə</a>
                 <h2>Admin Panel</h2>
                 <span>Cyber Dashboard</span>
             </div>
@@ -50,7 +58,7 @@
 
                     <input type="text" id="linkOfBlog" placeholder="Link">
 
-                    <input type="text" id="coverOfBlog" placeholder="Cover">
+                    <input type="file" id="coverOfBlog" placeholder="Cover">
 
                     <input type="text" id="dateOfBlog" placeholder="Tarix">
 
@@ -144,12 +152,50 @@
 
             </section>
 
+            <div class="loading-container">
+
+                <div class="loading-card">
+                    <div class="loading-image"></div>
+
+                    <div class="loading-content">
+                        <div class="loading-line w-80"></div>
+                        <div class="loading-line w-40"></div>
+                        <div class="loading-line w-100"></div>
+                        <div class="loading-line w-70"></div>
+                    </div>
+                </div>
+
+                <div class="loading-card">
+                    <div class="loading-image"></div>
+
+                    <div class="loading-content">
+                        <div class="loading-line w-75"></div>
+                        <div class="loading-line w-35"></div>
+                        <div class="loading-line w-100"></div>
+                        <div class="loading-line w-60"></div>
+                    </div>
+                </div>
+
+                <div class="loading-card">
+                    <div class="loading-image"></div>
+
+                    <div class="loading-content">
+                        <div class="loading-line w-90"></div>
+                        <div class="loading-line w-30"></div>
+                        <div class="loading-line w-100"></div>
+                        <div class="loading-line w-80"></div>
+                    </div>
+                </div>
+
+            </div>
+
         </main>
 
     </div>
 
     <script type="module" src="./js/admin.js"></script>
 
+    <script src="../alertMessage.js"></script>
 </body>
 
 </html>

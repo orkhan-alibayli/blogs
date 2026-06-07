@@ -10,30 +10,27 @@ const messagesBox =
     document.getElementById("messages");
 
 const showAlert = (type, message) => {
-
-    localStorage.setItem(
-        "alert",
-        JSON.stringify({
-            type,
-            message
-        })
-    );
-
-    if (typeof effectAlert === "function") {
-        effectAlert();
-    }
+    const alertBoxInForm = document.querySelector('.alert-box');
+    const alert = {
+        type,
+        message
+    };
+    localStorage.setItem('alert', JSON.stringify(alert));
+    effectAlert();
+    alertBoxInForm.style.display = 'flex';
+    return;
 };
 
-// 👉 Gmail-ləri gətir
 export const loadGmails = async () => {
 
     try {
-
+        document.querySelector(".loading-container").style.display = "flex";
         const gmails =
             await api.get(
                 "/admin/messages/gmails"
             );
 
+        document.querySelector(".loading-container").style.display = "none";
         gmailsBox.innerHTML = "";
 
         gmails.forEach(gmail => {
@@ -57,7 +54,7 @@ export const loadGmails = async () => {
         });
 
     } catch (error) {
-
+        document.querySelector(".loading-container").style.display = "none";
         showAlert(
             "error",
             error.message
@@ -67,22 +64,24 @@ export const loadGmails = async () => {
 
 };
 
-// 👉 Seçilmiş gmail mesajları
 const loadMessages = async (gmail) => {
 
     document.getElementById("activeUser").textContent = gmail;
 
     try {
 
+        document.querySelector(".loading-container").style.display = "flex";
         const messages =
             await api.get(
                 `/admin/messages/${gmail}`
             );
 
+        document.querySelector(".loading-container").style.display = "none";
         renderMessages(messages);
 
     } catch (error) {
 
+        document.querySelector(".loading-container").style.display = "none";
         showAlert(
             "error",
             error.message
@@ -92,7 +91,6 @@ const loadMessages = async (gmail) => {
 
 };
 
-// 👉 Render mesajlar
 const renderMessages = (messages) => {
 
     messagesBox.innerHTML = "";
@@ -115,6 +113,7 @@ const renderMessages = (messages) => {
         <p><b>Ad:</b> ${msg.name || "-"}</p>
         <p><b>Mesaj:</b> ${msg.message}</p>
         <small>${new Date(msg.createdAt).toLocaleString()}</small>
+        <a href="mailto:${msg.gmail}" class="reply-btn">Gmaildə Cavab Yaz</a>
     `;
 
         messagesBox.appendChild(card);
@@ -122,7 +121,6 @@ const renderMessages = (messages) => {
 
 };
 
-// 👉 Axtarış
 const searchMessages = async () => {
 
     try {
@@ -161,7 +159,6 @@ const searchMessages = async () => {
 
 };
 
-// 👉 event
 searchInput.addEventListener(
     "input",
     (e) => {

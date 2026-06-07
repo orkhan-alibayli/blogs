@@ -1,5 +1,17 @@
 import { api } from "../../js/api.js";
 
+const showAlert = (type, message) => {
+    const alertBoxInForm = document.querySelector('.alert-box');
+    const alert = {
+        type,
+        message
+    };
+    localStorage.setItem('alert', JSON.stringify(alert));
+    effectAlert();
+    alertBoxInForm.style.display = 'flex';
+    return;
+};
+
 const nameInput =
     document.getElementById("name");
 
@@ -15,28 +27,15 @@ const gmailInput =
 const updateBtn =
     document.getElementById("updateProfile");
 
-const showAlert = (type, message) => {
 
-    localStorage.setItem(
-        "alert",
-        JSON.stringify({
-            type,
-            message
-        })
-    );
-
-    if (typeof effectAlert === "function") {
-        effectAlert();
-    }
-};
-
-// 👉 profile load
 export const loadProfile = async () => {
-
+    document.querySelector(".loading-container").style.display = "flex";
     try {
 
         const profile =
             await api.get("/admin/getMe");
+
+        document.querySelector(".loading-container").style.display = "none";
 
         nameInput.value =
             profile.name || "";
@@ -50,22 +49,21 @@ export const loadProfile = async () => {
         gmailInput.value =
             profile.gmail || "";
 
-    } catch (error) {
 
+    } catch (error) {
+        document.querySelector(".loading-container").style.display = "none";
         showAlert(
             "error",
             error.message
         );
-
     }
-
 };
 
-// 👉 profile update
 const updateProfile = async () => {
 
     try {
-
+        updateBtn.disabled = true;
+        updateBtn.textContent = "Yadda saxlanılır...";
         const payload = {
 
             name: nameInput.value.trim(),
@@ -83,6 +81,8 @@ const updateProfile = async () => {
             payload
         );
 
+        updateBtn.disabled = false;
+        updateBtn.textContent = "Yadda saxla";
         showAlert(
             "success",
             "Profil yeniləndi"
@@ -91,7 +91,8 @@ const updateProfile = async () => {
         await loadProfile();
 
     } catch (error) {
-
+        updateBtn.disabled = false;
+        updateBtn.textContent = "Yadda saxla";
         showAlert(
             "error",
             error.message
@@ -101,7 +102,6 @@ const updateProfile = async () => {
 
 };
 
-// 👉 event
 updateBtn.addEventListener(
     "click",
     updateProfile

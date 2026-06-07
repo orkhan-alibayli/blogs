@@ -18,11 +18,6 @@
     background: black;
 }
 
-/* ::selection {
-    background: rgb(56, 25, 95);
-    color: white;
-} */
-
 a:hover {
     color: white;
 }
@@ -511,20 +506,6 @@ body>main>section>.main-blog>.primary-blogs>.blogs>div>h3 {
     padding-bottom: 12px;
 }
 
-
-/* body>main>section>.main-blog>.primary-blogs>.blogs>div>div::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(35deg, rgb(93, 56, 91), rgb(56, 25, 95), rgb(38, 22, 51));
-    border-radius: 0 0 1px 1px;
-    z-index: 100000;
-} */
-
-
-
 body>main>section>.contact {
     padding: 50px 120px;
     display: flex;
@@ -751,7 +732,104 @@ body>main>section>.contact>form>label>input[type="submit"]:hover {
     }
 }
 
+.loading-blog {
+    width: calc(50% - 20px);
 
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.loading-cover {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+
+    background: rgba(255, 255, 255, .05);
+
+    border-radius: 25px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-info {
+    padding: 0 5px;
+}
+
+.loading-date {
+    width: 120px;
+    height: 14px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, .05);
+
+    position: relative;
+    overflow: hidden;
+
+    margin-bottom: 10px;
+}
+
+.loading-title {
+    width: 70%;
+    height: 24px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, .05);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-play {
+    position: absolute;
+
+    right: 20px;
+    top: 20px;
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .08);
+
+    overflow: hidden;
+}
+
+.loading-cover::before,
+.loading-date::before,
+.loading-title::before,
+.loading-play::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.15),
+        transparent
+    );
+
+    transform: translateX(-100%);
+    animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media(max-width:620px) {
+    .loading-blog {
+        width: 100%;
+    }
+}
 
 
 

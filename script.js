@@ -13,6 +13,29 @@ let arrayOfBlogs = [];
 
 const getBlogs = async () => {
     try {
+
+        const blogs = document.getElementsByClassName('blogs')[0];
+
+        for (let i = 0; i < 3; i++) {
+
+            const loading = document.createElement('div');
+            loading.className = 'loading-blog';
+
+            loading.innerHTML = `
+            <div class="loading-cover">
+                <div class="loading-play"></div>
+            </div>
+
+            <div class="loading-info">
+                <div class="loading-date"></div>
+                <div class="loading-title"></div>
+            </div>
+        `;
+
+            blogs.appendChild(loading);
+        }
+
+
         const res = await api.get('/getBlogs');
         arrayOfBlogs = res.data;
         if (innerWidth > 620) {
@@ -32,12 +55,13 @@ getBlogs();
 
 const everyThing = (widthOfBlogs, seenOfBlogs, piksel) => {
     const blogs = document.getElementsByClassName('blogs')[0];
+    blogs.innerHTML = "";
     blogs.style.width = arrayOfBlogs.length * widthOfBlogs + piksel;
     arrayOfBlogs.forEach((e) => {
         const blogsElement = document.createElement('div');
         const blogsElementCoverBox = document.createElement('div');
         const blogsElementCover = document.createElement('img');
-        blogsElementCover.setAttribute('src', `/blogs/photos/${e.coverOfBlog?.split('/').slice(-1)[0]}`);
+        blogsElementCover.setAttribute('src', e.coverOfBlog);
         const blogsElementPlay = document.createElement('a');
         blogsElementPlay.setAttribute('href', e.linkOfBlog);
         blogsElementPlay.setAttribute('target', '_blank');
@@ -151,7 +175,6 @@ const sendMessage = async (e) => {
                 message: `${keys[key]} xanası boş qala bilməz`
             };
             localStorage.setItem('alert', JSON.stringify(alert));
-            console.log(keys[key])
             effectAlert();
             alertBoxInForm.style.display = 'flex';
             return;

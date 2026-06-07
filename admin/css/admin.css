@@ -12,24 +12,18 @@ body {
     color: #fff;
 }
 
-/* =========================
-   LAYOUT
-========================= */
 
 .admin {
     display: flex;
     min-height: 100vh;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
 
 .sidebar {
     width: 260px;
     background: rgba(20, 20, 40, 0.6);
     backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(255,255,255,0.06);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
@@ -38,6 +32,9 @@ body {
 
 .brand {
     margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .brand h2 {
@@ -50,6 +47,20 @@ body {
 .brand span {
     font-size: 12px;
     opacity: 0.6;
+}
+
+.brand-link{
+    font-size: 16px;
+    background: linear-gradient(90deg, #a855f7, #6366f1);
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 900;
+    width: min-content;
+    white-space: nowrap;
 }
 
 .menu-btn {
@@ -74,18 +85,11 @@ body {
     color: white;
 }
 
-/* =========================
-   CONTENT AREA
-========================= */
-
 .content {
     flex: 1;
     padding: 30px;
+    position: relative;
 }
-
-/* =========================
-   PAGES
-========================= */
 
 .page {
     display: none;
@@ -97,22 +101,25 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* =========================
-   CARDS
-========================= */
-
 .card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 .card h2 {
@@ -120,30 +127,24 @@ body {
     font-size: 18px;
 }
 
-/* =========================
-   INPUTS
-========================= */
-
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 12px 14px;
     margin-bottom: 10px;
     border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
     color: #fff;
     outline: none;
     transition: 0.2s;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     border-color: #a855f7;
-    box-shadow: 0 0 10px rgba(168,85,247,0.2);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
 }
-
-/* =========================
-   BUTTON
-========================= */
 
 button {
     padding: 10px 15px;
@@ -158,41 +159,31 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(124,58,237,0.3);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
 }
-
-/* =========================
-   TABLE
-========================= */
 
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 12px;
     text-align: left;
 }
 
 thead {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 tbody tr:hover {
-    background: rgba(168,85,247,0.08);
+    background: rgba(168, 85, 247, 0.08);
 }
-
-/* =========================
-   MESSAGES UI
-========================= */
-/* =========================
-   MESSAGES CONTAINER
-========================= */
 
 .messages-container {
     display: grid;
@@ -201,16 +192,12 @@ tbody tr:hover {
     gap: 20px;
 }
 
-/* =========================
-   LEFT SIDEBAR (USERS)
-========================= */
-
 .chat-sidebar {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
     padding: 15px;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
 }
 
@@ -228,13 +215,12 @@ tbody tr:hover {
     max-height: 65vh;
 }
 
-/* Gmail item → VIP style */
 .gmail-item {
     padding: 12px;
     border-radius: 12px;
     cursor: pointer;
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transition: 0.25s;
     position: relative;
     overflow: hidden;
@@ -247,7 +233,7 @@ tbody tr:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.2), transparent);
     transition: 0.4s;
 }
 
@@ -259,24 +245,20 @@ tbody tr:hover {
     border-color: #a855f7;
 }
 
-/* =========================
-   CHAT BOX
-========================= */
 
 .chat-box {
     display: flex;
     flex-direction: column;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
 }
 
-/* HEADER */
 .chat-header {
     padding: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .chat-header h3 {
@@ -286,43 +268,34 @@ tbody tr:hover {
     -webkit-text-fill-color: transparent;
 }
 
-/* =========================
-   MESSAGES AREA
-========================= */
-
 .chat-messages {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 12px;
 }
-
-/* MESSAGE CARD (VIP bubble style) */
 
 .message-card {
     max-width: 70%;
     padding: 12px 15px;
     border-radius: 16px;
-    background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
     animation: pop 0.25s ease;
 }
 
-/* incoming message style */
 .message-card {
     align-self: flex-start;
 }
 
-/* hover glow */
 .message-card:hover {
     border-color: #a855f7;
-    box-shadow: 0 0 15px rgba(168,85,247,0.2);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
 }
 
-/* text styles */
 .message-card h3 {
     font-size: 14px;
     margin-bottom: 5px;
@@ -334,7 +307,6 @@ tbody tr:hover {
     margin-bottom: 4px;
 }
 
-/* time */
 .message-card small {
     display: block;
     margin-top: 8px;
@@ -342,25 +314,166 @@ tbody tr:hover {
     opacity: 0.5;
 }
 
-/* animation */
+.reply-btn {
+    display: none;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, #7c3aed, #4f46e5);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 12px;
+    transition: 0.3s;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+
+.message-card:hover .reply-btn {
+    display: inline-block;
+}
+
 @keyframes pop {
     from {
         transform: scale(0.95);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
     }
 }
 
-/* =========================
-   ALERT
-========================= */
-
 .alert-box {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 9999;
+}
+
+.box-cover {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.box-cover>img {
+    width: 220px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.loading-card {
+    display: flex;
+    gap: 20px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    border:
+        1px solid rgba(255,255,255,.05);
+
+    backdrop-filter: blur(10px);
+}
+
+.loading-image {
+    width: 220px;
+    height: 130px;
+
+    border-radius: 14px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+.loading-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.loading-line {
+    height: 14px;
+
+    border-radius: 999px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+.w-30 { width: 30%; }
+.w-35 { width: 35%; }
+.w-40 { width: 40%; }
+.w-60 { width: 60%; }
+.w-70 { width: 70%; }
+.w-75 { width: 75%; }
+.w-80 { width: 80%; }
+.w-90 { width: 90%; }
+.w-100 { width: 100%; }
+
+.loading-line::before,
+.loading-image::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -150%;
+
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(168,85,247,.15),
+        rgba(99,102,241,.25),
+        rgba(168,85,247,.15),
+        transparent
+    );
+
+    animation: skeletonMove 1.8s infinite;
+}
+
+@keyframes skeletonMove {
+
+    0% {
+        left: -150%;
+    }
+
+    100% {
+        left: 150%;
+    }
+
 }
