@@ -61,7 +61,7 @@ const everyThing = (widthOfBlogs, seenOfBlogs, piksel) => {
         const blogsElement = document.createElement('div');
         const blogsElementCoverBox = document.createElement('div');
         const blogsElementCover = document.createElement('img');
-        blogsElementCover.setAttribute('src', e.coverOfBlog);
+        // blogsElementCover.setAttribute('src', e.coverOfBlog);
         const blogsElementPlay = document.createElement('a');
         blogsElementPlay.setAttribute('href', e.linkOfBlog);
         blogsElementPlay.setAttribute('target', '_blank');
