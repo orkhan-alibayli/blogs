@@ -35,3 +35,6 @@ if (JSON.parse(localStorage.getItem('signed'))) {
     loadProfile();
     loadGmails();
 }
+else{
+    window.location.href = "/admin/login.html";
+}
